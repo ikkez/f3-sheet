@@ -1,0 +1,10 @@
+{
+    "name": "ikkez/f3-sheet",
+    "description": "Some Excel and CSV utilities for PHP Fat-Free Framework",
+    "keywords": ["F3","fatfree","csv","xls","excel","export"],
+    "homepage": "https://github.com/ikkez/f3-sheet",
+    "license": "GPL-3.0",
+    "autoload": {
+        "classmap": ["lib/"]
+    }
+}

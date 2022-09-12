@@ -10,8 +10,8 @@
  *
  * (c) Christian Knuth
  *
- * @date: 16.03.2015
- * @version 0.4.1
+ * @date: 12.09.2022
+ * @version 0.4.2
  */
 
 
@@ -75,9 +75,11 @@ class Sheet extends \Prefab {
 				if ($i==0)
 					$val = current($headers);
 				elseif (isset($rows[$i-1][$ckey]))
-					$val = trim($rows[$i-1][$ckey]);
+					$val = $rows[$i-1][$ckey];
 				if (is_array($val))
 					$val = json_encode($val);
+				elseif (is_string($val))
+					$val = trim($val);
 				$xls.= (is_int($val)
 					|| (ctype_digit($val) && ($val[0]!='0' && strlen($val)>1)))
 					? $this->xlsWriteNumber($i,$c,$val)
@@ -176,9 +178,11 @@ class Sheet extends \Prefab {
 				if ($i==0)
 					$field = current($headers);
 				elseif (isset($rows[$i-1][$ckey]))
-					$field = trim($rows[$i-1][$ckey]);
+					$field = $rows[$i-1][$ckey];
 				if (is_array($field))
 					$field = json_encode($field);
+				elseif (is_string($field))
+					$field = trim($field);
 				if (empty($field) && $field !== 0)
 					$line[] = '';
 				elseif ($encloseAll || preg_match('/(?:'.preg_quote($delimiter, '/').'|'.

@@ -2,6 +2,7 @@
 
 Some Excel and CSV utilities for PHP Fat-Free Framework.
 
+#### Example from Array of Data
 
 ```php
 $excel = \Sheet::instance();
@@ -54,13 +55,26 @@ $rows = \Sheet::instance()->applyHeader($rows,['name','color','num']);
 
 ```
 
-**Notice:** The generated XLS can have problems in older versions of MS Office (Excel) with number-formatted fields not being recognized as such (displayed as text instead) and text fields, that contain line breaks can also leads to problems there (missing text). 
+#### Example from Fat Free Mapper Object
+
+```
+//Setup mapper
+$items = new \DB\SQL\Mapper($db,'mytable');
+
+//Load all items and map to associative array
+$all = array_map(array($items,'cast'),$items->find());
+
+$csv = \Sheet::instance();
+$csv->renderCSV($all, $items->fields(), "items.csv");
+```
+
+
+#### Notice
+The generated XLS can have problems in older versions of MS Office (Excel) with number-formatted fields not being recognized as such (displayed as text instead) and text fields, that contain line breaks can also leads to problems there (missing text). 
 
 Nevertheless, these problems do not appear when opened with LibreOffice or OpenOffice or rendered as csv with `renderCSV` instead and then imported to excel.
  
  
- 
-
 ## License
 
 You are allowed to use this plugin under the terms of the GNU General Public License version 3 or later.

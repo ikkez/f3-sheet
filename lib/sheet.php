@@ -81,7 +81,7 @@ class Sheet extends \Prefab {
 				elseif (is_string($val))
 					$val = trim($val);
 				$xls.= (is_int($val)
-					|| (ctype_digit($val) && ($val[0]!='0' && strlen($val)>1)))
+					|| (ctype_digit(strval($val)) && (strval($val)[0]!='0' && strlen($val)>1)))
 					? $this->xlsWriteNumber($i,$c,$val)
 					: $this->xlsWriteString($i,$c,utf8_decode($val));
 				next($headers);

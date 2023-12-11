@@ -204,8 +204,8 @@ class Sheet extends \Prefab {
 	 * @param $headers
 	 * @param $filename
 	 */
-	function renderCSV($rows,$headers,$filename) {
-		$data = $this->dumpCSV($rows,$headers);
+	function renderCSV($rows,$headers,$filename,$delimiter=';',$enclosure='"',$encloseAll=true) {
+		$data = $this->dumpCSV($rows, $headers, $delimiter, $enclosure, $encloseAll);
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 		header('Content-Type: text/csv;charset=UTF-16LE');

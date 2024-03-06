@@ -10,8 +10,8 @@
  *
  * (c) Christian Knuth
  *
- * @date: 12.09.2022
- * @version 0.4.2
+ * @date: 06.03.2024
+ * @version 0.4.3
  */
 
 
@@ -203,15 +203,16 @@ class Sheet extends \Prefab {
 	 * @param $rows
 	 * @param $headers
 	 * @param $filename
+	 * @param $encoding
 	 */
-	function renderCSV($rows,$headers,$filename,$delimiter=';',$enclosure='"',$encloseAll=true) {
+	function renderCSV($rows,$headers,$filename,$delimiter=';',$enclosure='"',$encloseAll=true,$encoding='UTF-8') {
 		$data = $this->dumpCSV($rows, $headers, $delimiter, $enclosure, $encloseAll);
 		header("Expires: 0");
 		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 		header('Content-Type: text/csv;charset=UTF-16LE');
 		header("Content-Disposition: attachment;filename=".$filename);
 		header("Content-Transfer-Encoding: binary");
-		echo "\xFF"."\xFE".mb_convert_encoding($data, 'UTF-16LE', 'UTF-8');
+		echo "\xFF"."\xFE".($encoding !== 'UTF-8' ? mb_convert_encoding($data, $encoding, 'UTF-8') : $data);
 		exit();
 	}
 
